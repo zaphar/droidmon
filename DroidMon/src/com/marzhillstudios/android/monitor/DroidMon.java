@@ -19,8 +19,8 @@ public class DroidMon extends Activity {
         String content = "Available Memory: " + mi.availMem + "\n";
         try {
         	List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(ActivityManager.RECENT_WITH_EXCLUDED);
-        	List<ActivityManager.RunningServiceInfo> services = am.getRunningServices(10);
-        	content = "Running Tasks: " + tasks.size() + "\n"
+        	List<ActivityManager.RunningServiceInfo> services = am.getRunningServices(ActivityManager.RECENT_WITH_EXCLUDED);
+        	content += "Running Tasks: " + tasks.size() + "\n"
    		 		+"Running services: " + services.size() + "\n"
    		 		;
         }
