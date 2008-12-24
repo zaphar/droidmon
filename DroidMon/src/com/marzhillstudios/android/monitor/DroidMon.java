@@ -46,14 +46,23 @@ public class DroidMon extends Activity {
 	        content += "Disk Total Blocks: " + fs.getBlockCount() + "\n";
 	        
 	        LocationManager lm = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-	        List<String> providers = lm.getAllProviders();
+	        List<String> providers = lm.getProviders(true);
 	        for (String p : providers) {
 	        	Location loc = lm.getLastKnownLocation(p);
-	        	double altitude = loc.getAltitude();
-	        	double latitude = loc.getLatitude();
-	        	double longitude = loc.getLongitude();
-	        	float bearing = loc.getBearing();
-	        	content += "Provider "+p+"has alt:"+altitude+", lat:"+latitude+", long:"+longitude+" at bearing:"+bearing;
+	        	double altitude = 0; double longitude =0; 
+	        	double latitude = 0;
+	        	float bearing = 0;
+	        	if (loc != null) {
+			        	if (loc.hasAltitude())
+		        		altitude = loc.getAltitude();
+		        	latitude = loc.getLatitude();
+		        	longitude = loc.getLongitude();
+		        	if (loc.hasBearing())
+		        		bearing = loc.getBearing();
+		        	content += "Provider ["+p+"] has alt:"+altitude+", lat:"+latitude+", long:"+longitude+" at bearing:"+bearing;
+	        	} else {
+	        		content += "Provider ["+p+"] has no location info";
+	        	}
 	        }
         }
         catch (Exception e) {
